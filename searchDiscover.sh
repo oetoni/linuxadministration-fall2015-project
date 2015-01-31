@@ -1,6 +1,6 @@
 #!/bin/bash
 # Linux Administration - FSHN.edu.al - Fall 2015, Semestral Project
-# Team Members: Areti B., Nikolin N., Elton N.
+# Team Members: Roberta B., Nikolin N., Elton N.
 # Revision 5, Version 1.1
 
 #FUNCTION_DECLARATION
