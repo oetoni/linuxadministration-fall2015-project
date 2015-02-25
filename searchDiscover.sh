@@ -1,7 +1,7 @@
 #!/bin/bash
 # Linux Administration - FSHN.edu.al - Fall 2015, Semestral Project
 # Team Members: Roberta B., Nikolin N., Elton N.
-# Revision 7, Version 0.4
+# Revision 13, Version 0.4
 
 #FUNCTION_DECLARATION
 function takeBrake(){
@@ -27,17 +27,17 @@ function showRAMProcesses(){
 }
 function loopThroughInvalidLoogins(){
 	grep -Eo "Invalid user.*([0-9]{1,3}\.){3}[0-9]{1,3}" /var/log/auth.log | while read -r recordLog ; do  
-			read -a ipArray <<< "$recordLog"
-			
-			local geoIPCommand="$(eval geoiplookup -f /usr/share/GeoIP/GeoLiteCity.dat ${ipArray[4]})"
-			
-			oldIFS=$IFS;
-			IFS=$','
-			read -a geoIpArray <<< "${geoIPCommand///}"
-			IFS=$oldIFS
-			
-			printf "USERNAME ATTEMPT: \033[00;31m ${ipArray[2]} \033[0m from \033[00;32m ${geoIpArray[1]: (-2)} \033[0m:\033[00;32m ${geoIpArray[4]} \033[0m with IP: \033[00;32m ${ipArray[4]} \033[0m on coordinates LAT: \033[01;33m ${geoIpArray[6]} \033[0m and LON: \033[01;33m ${geoIpArray[7]} \033[0m\n"
-		done
+		read -a ipArray <<< "$recordLog"
+		
+		local geoIPCommand="$(eval geoiplookup -f /usr/share/GeoIP/GeoLiteCity.dat ${ipArray[4]})"
+		
+		oldIFS=$IFS;
+		IFS=$','
+		read -a geoIpArray <<< "${geoIPCommand///}"
+		IFS=$oldIFS
+		
+		printf "USERNAME ATTEMPT: \033[00;31m ${ipArray[2]} \033[0m from \033[00;32m ${geoIpArray[1]: (-2)} \033[0m:\033[00;32m ${geoIpArray[4]} \033[0m with IP: \033[00;32m ${ipArray[4]} \033[0m on coordinates LAT: \033[01;33m ${geoIpArray[6]} \033[0m and LON: \033[01;33m ${geoIpArray[7]} \033[0m\n"
+	done
 }
 
 function getApacheSuccessfulConnections(){
@@ -48,24 +48,23 @@ function getApacheSuccessfulConnections(){
 	printf "\n"
 	printf "\033[01;91m $(tput setab 7) DETAILED LIST: $(tput sgr 0) \033[0m\n"
 	grep -Eo "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.* 200"  /var/log/apache2/access.log | while read -r recordLog ; do
-			
-			recordLog=${recordLog/ - - /|}
-			recordLog=${recordLog/ +0000] /|}
+		recordLog=${recordLog/ - - /|}
+		recordLog=${recordLog/ +0000] /|}
 
-			oldIFS=$IFS
-			IFS=$'|'
-			
-			read -a ipArray <<< "$recordLog"
-			
-			IP=${ipArray[0]}
-			returnGeoIP ${ipArray[0]}
-			
-			read -a geoTrackingResults <<< "$geoIPCommandGlobal"
-			
-			printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n"
-			
-			IFS=$oldIFS
-		done
+		oldIFS=$IFS
+		IFS=$'|'
+		
+		read -a ipArray <<< "$recordLog"
+		
+		IP=${ipArray[0]}
+		returnGeoIP ${ipArray[0]}
+		
+		read -a geoTrackingResults <<< "$geoIPCommandGlobal"
+		
+		printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n"
+		
+		IFS=$oldIFS
+	done
 }
 
 function getApacheUnsuccessfulConnections(){
@@ -77,24 +76,23 @@ function getApacheUnsuccessfulConnections(){
 	printf "\033[01;91m $(tput setab 7) DETAILED LIST: $(tput sgr 0) \033[0m\n"
 	
 	grep -Eo "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.* 404"  /var/log/apache2/access.log | while read -r recordLog ; do
-			
-			recordLog=${recordLog/ - - /|}
-			recordLog=${recordLog/ +0000] /|}
+		recordLog=${recordLog/ - - /|}
+		recordLog=${recordLog/ +0000] /|}
 
-			oldIFS=$IFS
-			IFS=$'|'
-			
-			read -a ipArray <<< "$recordLog"
-			
-			IP=${ipArray[0]}
-			returnGeoIP ${ipArray[0]}
-			
-			read -a geoTrackingResults <<< "$geoIPCommandGlobal"
-			
-			printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n"
-			
-			IFS=$oldIFS
-		done
+		oldIFS=$IFS
+		IFS=$'|'
+		
+		read -a ipArray <<< "$recordLog"
+		
+		IP=${ipArray[0]}
+		returnGeoIP ${ipArray[0]}
+		
+		read -a geoTrackingResults <<< "$geoIPCommandGlobal"
+		
+		printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n"
+		
+		IFS=$oldIFS
+	done
 }
 
 function searchOnFilesForPaterns(){
@@ -128,13 +126,14 @@ function findAllFilesWithLessThan5LinesCode(){
 	#TEST PATH OF FOLDER
 	#pathFolder=/home/ubuntu/wordpress/*
 	
-	printf ":::provide PATH to loop and count file's lines (WITHOUT ENDING /): \n"
+	printf ":::provide PATH to loop and count file's lines (W/WOUT ENDING /* FOR LOOPING): \n"
 	read pathFolder
 	
 	pathFolder+="/*"
 	
 	for f in $pathFolder
 	do
+		#currently only counts all lines on all files, will be updated soon
 		local wExecutionCommand="$(eval wc -l ${f})"
 		printf "${wExecutionCommand} \n"
 	done
@@ -199,7 +198,7 @@ printf "\n"
 
 takeBrake '[Enter] to dig further...'
 
-printf "\033[01;91m $(tput setab 7) SEARCH TEXT PATTERN OVER ALL FILES $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 7) SEARCH TEXT PATTERN(s) OVER ALL FILES $(tput sgr 0) \033[0m\n"
 printf "\n"
 searchOnFilesForPaterns
 printf "\n"
@@ -213,7 +212,7 @@ printf "\n"
 
 takeBrake '[Enter] to dig further...'
 
-printf "\033[01;91m $(tput setab 7) SEARCH \x__ PATTERN OVER ALL FILES INSIDE A DIRECTORY $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 9) SEARCH \x__ PATTERN OVER ALL FILES INSIDE A DIRECTORY $(tput sgr 0) \033[0m\n"
 printf "\n"
 searchX__patterInsideGivenDirectory
 printf "\n"
