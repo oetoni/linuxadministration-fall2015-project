@@ -1,6 +1,4 @@
 #!/bin/bash
-# Linux Administration - FSHN.edu.al - Fall 2015, Semestral Project
-# Team Members: Roberta B., Nikolin N., Elton N.
 
 #Files that have recently been modified and emails the results
 
