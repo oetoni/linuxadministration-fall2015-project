@@ -6,7 +6,7 @@
 
 
 #Directory to search
-myDir=~/public_html
+myDir=~/home
 
 #Set frequency of command in minutes, this should match how often you run the cron job
 myFrequency=30 * * * *
