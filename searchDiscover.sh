@@ -123,6 +123,22 @@ function searchOnFilesForPaterns(){
 	local grepExecutionCommand="$(eval grep -rw -i --include=*.{${fileExtentionsToCheck}} \"${keywordForPaternToCheck}\" /)"
 	printf "${grepExecutionCommand} \n"
 }
+
+function findAllFilesWithLessThan5LinesCode(){
+	#TEST PATH OF FOLDER
+	#pathFolder=/home/ubuntu/wordpress/*
+	
+	printf ":::provide PATH to loop and count file's lines (WITHOUT ENDING /): \n"
+	read pathFolder
+	
+	pathFolder+="/*"
+	
+	for f in $pathFolder
+	do
+		local wExecutionCommand="$(eval wc -l ${f})"
+		printf "${wExecutionCommand} \n"
+	done
+}
 #END_FUNCTION_DECLARITION
 
 #EXECUTION_TIME
@@ -178,6 +194,13 @@ takeBrake '[Enter] to dig further...'
 printf "\033[01;91m $(tput setab 7) SEARCH TEXT PATTERN OVER ALL FILES $(tput sgr 0) \033[0m\n"
 printf "\n"
 searchOnFilesForPaterns
+printf "\n"
+
+takeBrake '[Enter] to dig further...'
+
+printf "\033[01;91m $(tput setab 8) FIND ALL FILES WITH LESS THAN 5 LINES $(tput sgr 0) \033[0m\n"
+printf "\n"
+findAllFilesWithLessThan5LinesCode
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
