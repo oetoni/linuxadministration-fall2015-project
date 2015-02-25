@@ -1,7 +1,7 @@
 #!/bin/bash
 # Linux Administration - FSHN.edu.al - Fall 2015, Semestral Project
 # Team Members: Roberta B., Nikolin N., Elton N.
-# Revision 5, Version 1.1
+# Revision 7, Version 0.4
 
 #FUNCTION_DECLARATION
 function takeBrake(){
@@ -96,6 +96,33 @@ function getApacheUnsuccessfulConnections(){
 			IFS=$oldIFS
 		done
 }
+
+function searchOnFilesForPaterns(){
+	local fileExtentionsToCheck=""
+	local keywordForPaternToCheck=""
+	
+	while true; do
+		printf ":::provide FILE extension(s) to search (ex. png,jpg etc. ot q to quit): \n"
+		read userInput;
+		if [ "$userInput" == "q" ]; then
+			break
+		else
+			fileExtentionsToCheck+="${userInput},"
+		fi
+	done
+	
+	fileExtentionsToCheck=${fileExtentionsToCheck::-1}
+	printf "\n you have provided: \033[01;33m $fileExtentionsToCheck \033[0m \n\n"
+	
+	printf ":::provide TEXT pattern to search: \n"
+	read keywordForPaternToCheck
+	
+	printf "\n you have provided: \033[01;33m $keywordForPaternToCheck \033[0m \n"
+	printf ":::your final query looks like: \033[00;32m  grep -rw -i --include=*.{$fileExtentionsToCheck} \"$keywordForPaternToCheck\" / \033[0m \n\n"
+	
+	local grepExecutionCommand="$(eval grep -rw -i --include=*.{${fileExtentionsToCheck}} \"${keywordForPaternToCheck}\" /)"
+	printf "${grepExecutionCommand} \n"
+}
 #END_FUNCTION_DECLARITION
 
 #EXECUTION_TIME
@@ -106,44 +133,51 @@ varTitle="Starting searchDiscover execution now for user: $USER"
 printf $varTitle
 printf "\n"
 
-printf "\033[01;91m $(tput setab 7) LIST OF CONNECTED USERS $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 1) LIST OF CONNECTED USERS $(tput sgr 0) \033[0m\n"
 printf "\n"
 showActiveUsers
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
 
-printf "\033[01;91m $(tput setab 7) OPEN FIREWALL PORTS $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 2) OPEN FIREWALL PORTS $(tput sgr 0) \033[0m\n"
 printf "\n"
 showOpenFirewallPorts
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
 
-printf "\033[01;91m $(tput setab 7) SHORTING PROCESSES IN RAM $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 3) SHORTING PROCESSES IN RAM $(tput sgr 0) \033[0m\n"
 printf "\n"
 showRAMProcesses
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
 
-printf "\033[01;91m $(tput setab 7) LOOP THROUGH UNSUCCESSFUL LOGIN ATTPETS $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 4) LOOP THROUGH UNSUCCESSFUL LOGIN ATTPETS $(tput sgr 0) \033[0m\n"
 printf "\n"
 loopThroughInvalidLoogins
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
 
-printf "\033[01;91m $(tput setab 7) SUCCSESSFUL APACHE CONNECTIONS (200) $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 5) SUCCSESSFUL APACHE CONNECTIONS (200) $(tput sgr 0) \033[0m\n"
 printf "\n"
 getApacheSuccessfulConnections
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
 
-printf "\033[01;91m $(tput setab 7) UNSUCCSESSFUL APACHE CONNECTIONS (404) $(tput sgr 0) \033[0m\n"
+printf "\033[01;91m $(tput setab 6) UNSUCCSESSFUL APACHE CONNECTIONS (404) $(tput sgr 0) \033[0m\n"
 printf "\n"
 getApacheUnsuccessfulConnections
+printf "\n"
+
+takeBrake '[Enter] to dig further...'
+
+printf "\033[01;91m $(tput setab 7) SEARCH TEXT PATTERN OVER ALL FILES $(tput sgr 0) \033[0m\n"
+printf "\n"
+searchOnFilesForPaterns
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
