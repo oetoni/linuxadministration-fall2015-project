@@ -9,7 +9,7 @@
 myDir=~/public_html
 
 #Set frequency of command in minutes, this should match how often you run the cron job
-myFrequency='-30'
+myFrequency=30 * * * *
 
 #email address for mailing the results
 myEmail=n.ngjela@gmail.com
