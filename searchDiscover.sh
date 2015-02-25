@@ -139,6 +139,14 @@ function findAllFilesWithLessThan5LinesCode(){
 		printf "${wExecutionCommand} \n"
 	done
 }
+
+function searchX__patterInsideGivenDirectory(){
+	printf ":::provide file path to search: \n"
+	read pathToSearch
+	
+	local grepExecutionCommand="$(eval grep -w '\\[xX][0-9][0-9]' $pathToSearch)"
+	printf "${grepExecutionCommand} \n"
+}
 #END_FUNCTION_DECLARITION
 
 #EXECUTION_TIME
@@ -201,6 +209,13 @@ takeBrake '[Enter] to dig further...'
 printf "\033[01;91m $(tput setab 8) FIND ALL FILES WITH LESS THAN 5 LINES $(tput sgr 0) \033[0m\n"
 printf "\n"
 findAllFilesWithLessThan5LinesCode
+printf "\n"
+
+takeBrake '[Enter] to dig further...'
+
+printf "\033[01;91m $(tput setab 7) SEARCH \x__ PATTERN OVER ALL FILES INSIDE A DIRECTORY $(tput sgr 0) \033[0m\n"
+printf "\n"
+searchX__patterInsideGivenDirectory
 printf "\n"
 
 takeBrake '[Enter] to dig further...'
