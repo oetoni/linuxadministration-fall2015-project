@@ -2,7 +2,7 @@
 # Linux Administration - FSHN.edu.al - Fall 2015, Semestral Project
 # Team Members: Roberta B., Nikolin N., Elton N.
 
-#Script that finds files that have recently been modified and emails the results
+#Files that have recently been modified and emails the results
 
 
 #Directory to search
