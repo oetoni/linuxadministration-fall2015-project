@@ -1,11 +1,9 @@
 In order to use the script you MUST have installed the following module. The script take advantage of executing and collecting the results of "geoiplookup" command.<br />
-<br />
 Installation Process:
 <br />
 Step 1:<br />
 $ sudo apt-get install geoip-bin<br />
 ...and you're done.<br />
-<br />
 Execution commands:<br />
 for country level lookup use this<br />
 $ geoiplookup 8.8.8.8<br />
