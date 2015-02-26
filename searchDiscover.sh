@@ -1,7 +1,7 @@
 #!/bin/bash
 # Linux Administration - FSHN.edu.al - Fall 2015, Semestral Project
 # Team Members: Roberta B., Nikolin N., Elton N.
-# Revision 19, Version 0.4
+# Version 0.4
 
 #GLOBAL VARIABLES
 #0 just display on command lines
