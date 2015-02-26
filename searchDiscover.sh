@@ -28,6 +28,22 @@ function sendMailWithAttachment(){
 	local mailExecutionCommand="$(eval echo \"attached\" | mutt -s searchDiscover -a reportForMail.txt  -- ${emailAddressToSend})"
 	rm reportForMail.txt
 }
+#TO BE IMPLEMENTED###
+#Generic processing of the if contritions by passing the parameters $1, $2, $3 ect
+#in order to reduce code length and performance this can be called in all functions and coordinate the output
+function outputCoordinatorForFunctions(){
+	if [ "$writeToFileOrSendMail" -eq 1 ]; then
+		##GENERIC GET command $1, eval to execute it command and >> logs.txt
+	elif [ "$writeToFileOrSendMail" -eq 2 ]; then
+		##GENERIC GET command $1, eval to execute it and >> reportForMail.txt
+	else
+		##GENERIC GET command $1, eval to execute and printf the result
+	fi
+	
+	writeToFileOrSendMail=0
+	
+	#call outputCoordinatorForFunctions "command input to execute" from all functions
+}
 #--------------CASE FUNCTIONS BELOW
 function showActiveUsers(){
 	if [ "$writeToFileOrSendMail" -eq 1 ]; then
