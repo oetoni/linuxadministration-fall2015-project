@@ -1,7 +1,7 @@
 #!/bin/bash
 # Linux Administration - FSHN.edu.al - Fall 2015, Semestral Project
 # Team Members: Roberta B., Nikolin N., Elton N.
-# Revision 14, Version 0.5
+# Revision 15, Version 0.4
 
 #GLOBAL VARIABLES
 writeToFile=0
@@ -58,7 +58,7 @@ function loopThroughInvalidLoogins(){
 		if [ "$writeToFile" -eq 1 ]; then
 			printf "USERNAME ATTEMPT: \033[00;31m ${ipArray[2]} \033[0m from \033[00;32m ${geoIpArray[1]: (-2)} \033[0m:\033[00;32m ${geoIpArray[4]} \033[0m with IP: \033[00;32m ${ipArray[4]} \033[0m on coordinates LAT: \033[01;33m ${geoIpArray[6]} \033[0m and LON: \033[01;33m ${geoIpArray[7]} \033[0m\n" >> logs.txt
 		else
-			printf "USERNAME ATTEMPT: \033[00;31m ${ipArray[2]} \033[0m from \033[00;32m ${geoIpArray[1]: (-2)} \033[0m:\033[00;32m ${geoIpArray[4]} \033[0m with IP: \033[00;32m ${ipArray[4]} \033[0m on coordinates LAT: \033[01;33m ${geoIpArray[6]} \033[0m and LON: \033[01;33m ${geoIpArray[7]} \033[0m\n"
+			printf "USERNAME ATTEMPT: ${ipArray[2]} from ${geoIpArray[1]: (-2)} : ${geoIpArray[4]} with IP: ${ipArray[4]} on coordinates LAT: ${geoIpArray[6]} and LON: ${geoIpArray[7]}"
 		fi
 	done
 	writeToFile=0
@@ -88,7 +88,7 @@ function getApacheSuccessfulConnections(){
 		if [ "$writeToFile" -eq 1 ]; then
 			printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n" >> logs.txt
 		else
-			printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n"
+			printf "${ipArray[1]/[/ }, ${geoTrackingResults[1]}, $IP, ${ipArray[2]}, ${geoTrackingResults[2]} \n"
 		fi
 		
 		IFS=$oldIFS
@@ -121,7 +121,7 @@ function getApacheUnsuccessfulConnections(){
 		if [ "$writeToFile" -eq 1 ]; then
 			printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n" >> logs.txt
 		else
-			printf "\033[00;32m ${ipArray[1]/[/ }\033[0m, \033[01;33m${geoTrackingResults[1]}\033[0m, \033[00;32m$IP\033[0m, ${ipArray[2]}, \033[01;34m$(tput setab 7)${geoTrackingResults[2]}$(tput sgr 0)\033[0m \n"
+			printf "${ipArray[1]/[/ }, ${geoTrackingResults[1]}, $IP, ${ipArray[2]}, ${geoTrackingResults[2]} \n"
 		fi
 		
 		IFS=$oldIFS
