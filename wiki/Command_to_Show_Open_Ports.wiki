@@ -1,0 +1,11 @@
+Command to show open ports:
+netstat -lntu
+
+-l = only services which are listening on some port
+-n = show port number, don't try to resolve the service name
+-t = tcp ports
+-u = udp ports
+-p = name of the program
+
+This command will list open network ports and the processes that own them:
+netstat -lnptu
